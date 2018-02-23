@@ -4,4 +4,7 @@ Feature scaling resolved the error but no marked improvement was seen in the acc
 Using a 5-fold CV method and 3000 iterations, train accuracy reached about 78%, while 80% accuracy was seen for test data. Increasing the 
 numberof iterations did not increase accuracy. Same for 10-fold CV.
 
-Using n-fold CV gave an accuracy of 76% on the entire dataset.
+Using n-fold CV gave an accuracy of 76% on the entire dataset
+
+
+-> Normalizing using mean and variance gives the same accuracy.

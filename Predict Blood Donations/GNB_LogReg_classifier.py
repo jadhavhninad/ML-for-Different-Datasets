@@ -11,7 +11,16 @@ import matplotlib.pyplot as plt
 def modelLogReg(X_original, Y, w, w0, learning_rate, num_iterations):
     #for itr in range(num_iterations):
     cost, itr= 9000, 0
-    X = (X_original - X_original.min(axis=0)) / (X_original.max(axis=0) - X_original.min(axis=0))
+
+    #X = (X_original - X_original.min(axis=0)) / (X_original.max(axis=0) - X_original.min(axis=0))
+    eps = 0.01
+    #something like Batch normalization mean = 0, sd = 1
+
+    for i in range(0,X_original.shape[1],1):
+        mean = 1/X_original.shape[0] * np.sum(X_original[:,i])
+        var  = 1/X_original.shape[0] * np.sum(np.power((X_original[:,i] - mean),2))
+        X_original[:, i] = (X_original[:,i] - mean)/np.power((var+eps),0.5)
+    
     #X = X_original
     #while num_iterations < abs(cost):
     while itr < num_iterations:
@@ -127,7 +136,7 @@ def classifyGNB(X, mean, variance, cp):
 def main():
     #The last column of data is the label.
     data = np.array(np.genfromtxt('./data.csv', delimiter=','))
-    cv_fold = 700
+    cv_fold = 5
     #print(data.shape)
     #print(data[0])
 
@@ -218,6 +227,15 @@ def main():
         plt.savefig('fact_vs_accPlot.png')
         '''
         #break
+    final_train_data = data[:, 0:int(data.shape[1]) - 1]
+    final_train_label = data[: ,int(data.shape[1]) - 1]
+    final_train_Pred = classifyLogReg(final_train_data.T, w, w0)
+
+    print(final_train_Pred.shape)
+    print(final_train_label.shape)
+
+    acc = 100 - (np.sum((np.abs(final_train_Pred[:,0] - final_train_label))) / final_train_data.shape[0]) * 100
+    print("ACCURACY = ",acc)
 
 if __name__ == "__main__":
     main()
