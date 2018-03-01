@@ -8,3 +8,9 @@ Using n-fold CV gave an accuracy of 76% on the entire dataset
 
 
 -> Normalizing using mean and variance gives the same accuracy.
+
+
+
+2) Using boosting, the accuracy improved to 79.6% (For 5000 iterations). On train data, the accuracy is about 83%. The 1R (decision tree stump) library from python scitlearn was used. Need to do some more tests on this to check if accuracy can be improved further or not.
+
+

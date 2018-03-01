@@ -20,7 +20,7 @@ def modelLogReg(X_original, Y, w, w0, learning_rate, num_iterations):
         mean = 1/X_original.shape[0] * np.sum(X_original[:,i])
         var  = 1/X_original.shape[0] * np.sum(np.power((X_original[:,i] - mean),2))
         X_original[:, i] = (X_original[:,i] - mean)/np.power((var+eps),0.5)
-    
+
     #X = X_original
     #while num_iterations < abs(cost):
     while itr < num_iterations:
